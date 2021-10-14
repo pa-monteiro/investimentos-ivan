@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import request from "supertest";
 import { v4 } from "uuid";
 
