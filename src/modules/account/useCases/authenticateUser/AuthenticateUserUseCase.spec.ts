@@ -12,7 +12,7 @@ let mockUser: ICreateUserDto
 describe("Authenticate User", () => {
     beforeEach(() => {
         mockUser = {
-            driver_license: "00123",
+            isAdmin: true,
             email: "user@test.com",
             password: "12345",
             name: "User test"

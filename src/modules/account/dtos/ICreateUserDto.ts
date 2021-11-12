@@ -1,9 +1,9 @@
 interface ICreateUserDto {
-    name: string;
-    password: string;
-    email: string;
-    driver_license: string;
     id?: string;
+    name: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
     avatar?: string;
 }
 
