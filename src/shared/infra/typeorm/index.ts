@@ -8,7 +8,7 @@ export default async(host = "database"): Promise<Connection> => {
             Object.assign(defaultOptions, {
                 host,
                 database: process.env.NODE_ENV === 'test'
-                ? "rentx_test" : defaultOptions.database
+                ? "investimentos_test" : defaultOptions.database
             })
         )
     }catch(error){
@@ -16,7 +16,7 @@ export default async(host = "database"): Promise<Connection> => {
             Object.assign(defaultOptions, {
                 host,
                 database: process.env.NODE_ENV === 'test'
-                ? "rentx_test" : defaultOptions.database
+                ? "investimentos_test" : defaultOptions.database
             })
         )
     }
