@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction} from 'express';
 import "express-async-errors"
 import swaggerUi from 'swagger-ui-express';
-
+import cors from 'cors';
 
 import swaggerFile from '../../../swagger.json'
 
@@ -17,6 +17,7 @@ app.use(express.json());
 
 app.use("/docs",swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(router);
+app.use(cors());
 createConnection().then(() => console.log('connection with database successfull')).catch(error => console.log(error));
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
