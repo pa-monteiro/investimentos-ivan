@@ -17,7 +17,10 @@ app.use(express.json());
 
 app.use("/docs",swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(router);
-app.use(cors());
+app.use(cors({
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+    origin: '*'
+}));
 createConnection().then(() => console.log('connection with database successfull')).catch(error => console.log(error));
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
