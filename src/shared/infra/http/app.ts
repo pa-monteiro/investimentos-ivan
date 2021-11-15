@@ -17,7 +17,7 @@ app.use(express.json());
 
 // Add a list of allowed origins.
 // If you have more origins you would like to add, you can add them to the array below.
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://localhost:3000', 'https://horizont-invest.herokuapp.com'];
 
 const options: cors.CorsOptions = {
   origin: allowedOrigins

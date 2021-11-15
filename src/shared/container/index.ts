@@ -7,6 +7,8 @@ import { UsersRepository } from '@modules/account/infra/typeorm/repositories/Use
 
 import { IProductsRepository } from '@modules/products/repositories/IProductsRepository';
 import { ProductsRepository } from '@modules/products/infra/typeorm/repositories/ProductsRepository';
+import { IDailyPosting } from '@modules/daily_posting/repositories/IDailyPosting';
+import { DailyPostingRepository } from '@modules/daily_posting/infra/typeorm/repositories/DailyPostingRepository';
 
 container.registerSingleton<IUsersRepository>(
     "UsersRepository",
@@ -16,4 +18,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IProductsRepository>(
     "ProductsRepository",
     ProductsRepository
+)
+
+container.registerSingleton<IDailyPosting>(
+    "DailyPostingRepository",
+    DailyPostingRepository
 )

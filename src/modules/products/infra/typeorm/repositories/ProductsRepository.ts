@@ -10,6 +10,28 @@ class ProductsRepository implements IProductsRepository {
         this.repository = getRepository(Product);
     }
 
+    async update(id: string, data: ICreateProductDTO): Promise<void> {
+         await this.repository.update(id, data)
+    }
+
+    async findById(id: string): Promise<Product> {
+        return await this.repository.findOne(id)
+    }
+
+    async removeIds(ids: string[]): Promise<void> {
+       ids.map(async id => {
+           await this.repository.delete({id});
+       });
+    }
+
+    async listAll(): Promise<Product[]> {
+        return await this.repository.find();
+    }
+
+    async findByIds(ids: string[]): Promise<Product[]> {
+        return await this.repository.findByIds(ids);
+    }
+
     async create(data: ICreateProductDTO): Promise<Product> {
        const product = this.repository.create(data);
 

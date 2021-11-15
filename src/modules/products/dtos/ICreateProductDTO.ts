@@ -6,4 +6,5 @@ export enum FundsType {
 export interface ICreateProductDTO {
     name: string;
     type: FundsType;
+    percentage: string;
 }

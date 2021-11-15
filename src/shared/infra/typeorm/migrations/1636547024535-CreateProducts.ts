@@ -22,6 +22,10 @@ export class CreateProducts1636547024535 implements MigrationInterface {
                         enum: ['fixed', 'variable']
                     },
                     {
+                        name: "percentage",
+                        type: "numeric"
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'

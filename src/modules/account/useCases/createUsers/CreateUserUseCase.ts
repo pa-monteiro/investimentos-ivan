@@ -3,23 +3,38 @@ import { ICreateUserDto } from "@modules/account/dtos/ICreateUserDto";
 import { hash } from 'bcrypt'
 import { inject, injectable } from "tsyringe";
 import { AppError } from "@shared/errors/AppError";
+import { IProductsRepository } from "@modules/products/repositories/IProductsRepository";
+import { User } from "@modules/account/infra/typeorm/entities/User";
 
 @injectable()
 class CreateUserUseCase{
 
     constructor(
         @inject("UsersRepository")
-        private usersRepository: IUsersRepository
+        private usersRepository: IUsersRepository,
+        @inject("ProductsRepository")
+        private productsRepository: IProductsRepository
     ){}
 
-    async execute({name, email, isAdmin ,password}: ICreateUserDto) : Promise<void>{
+    async execute({name, email,deadline, password, products }: ICreateUserDto) : Promise<User>{
         const userAlreadyExists = await this.usersRepository.findByEmail(email);
         if(userAlreadyExists){
-            throw new AppError('User already exists.')
+            throw new AppError('Usuário já está cadastrado.')
         }
         
         const passwordHash = await hash(password, 8);
-        await this.usersRepository.create({name, email, isAdmin ,password: passwordHash})
+        const user = await this.usersRepository.create({name, email,deadline, password: passwordHash})
+        if(products){
+            const product = await this.productsRepository.findByIds(products);
+    
+            user.products = product;
+    
+            const userUpdated = await this.usersRepository.create(user);
+            
+            return userUpdated;
+        }
+        return user;
+
     }
 }
 

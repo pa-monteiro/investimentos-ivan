@@ -12,7 +12,8 @@ describe("Create Products Use Case", () => {
         useCase = new CreateProductsUseCase(repository);
         mock = {
             name: 'Fund Test',
-            type: FundsType.FIXED
+            type: FundsType.FIXED,
+            percentage: '1.5%'
         }
     })
 

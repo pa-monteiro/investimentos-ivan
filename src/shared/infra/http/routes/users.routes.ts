@@ -3,17 +3,29 @@ import multer from "multer";
 
 import { UpdateUserAvatarController } from '@modules/account/useCases/updateUserAvatar/UpdateUserAvatarController';
 import { CreateUserController } from '@modules/account/useCases/createUsers/CreateUserController';
+import { ListUsersController } from '@modules/account/useCases/listUsers/ListUsersController';
+import { RemoveUsersController } from '@modules/account/useCases/removeUsers/RemoveUsersController';
 
 import uploadConfig from '@config/upload'
 
 import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensureAuthenticated';
+import { ensureAdmin } from '../middlewares/ensureAdmin';
+import { FindUserByIdController } from '@modules/account/useCases/findUserById/FindUserByIdController';
+import { UpdateUserController } from '@modules/account/useCases/updateUser/UpdateUserController';
 
 const usersRoutes = Router();
 
 const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"))
-usersRoutes.post('/', new CreateUserController().handle);
 
-usersRoutes.patch('/avatar', ensureAuthenticated,uploadAvatar.single("avatar") ,new UpdateUserAvatarController().handle)
+
+usersRoutes.post('/', new CreateUserController().handle);
+usersRoutes.use(ensureAuthenticated)
+usersRoutes.patch('/avatar',uploadAvatar.single("avatar") ,new UpdateUserAvatarController().handle)
+usersRoutes.use(ensureAdmin)
+usersRoutes.get('/', new ListUsersController().handle);
+usersRoutes.get('/:id', new FindUserByIdController().handle);
+usersRoutes.put('/:id/update', new UpdateUserController().handle);
+usersRoutes.post('/remove', new RemoveUsersController().handle);
 
 
 export { usersRoutes }

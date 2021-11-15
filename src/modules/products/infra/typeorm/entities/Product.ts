@@ -13,6 +13,9 @@ class Product {
     @Column()
     type: string;
 
+    @Column()
+    percentage: string;
+
     @CreateDateColumn()
     created_at: Date;
 
