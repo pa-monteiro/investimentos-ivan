@@ -5,7 +5,6 @@ interface ICreateUserDto {
     email: string;
     password: string;
     deadline: number;
-    products?: string[]
 }
 
 export {

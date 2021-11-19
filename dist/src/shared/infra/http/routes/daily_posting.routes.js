@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.dailyPostingRouter = void 0;
+var CreateDailyPostingController_1 = require("@modules/daily_posting/useCases/createDailyPosting/CreateDailyPostingController");
+var GetIndicatorsReportController_1 = require("@modules/daily_posting/useCases/getIndicatorsReport/GetIndicatorsReportController");
+var DashboardController_1 = require("@modules/payments/useCases/dashboard/DashboardController");
+var express_1 = require("express");
+var ensureAdmin_1 = require("../middlewares/ensureAdmin");
+var ensureAuthenticated_1 = require("../middlewares/ensureAuthenticated");
+var dailyPostingRouter = (0, express_1.Router)();
+exports.dailyPostingRouter = dailyPostingRouter;
+dailyPostingRouter.use(ensureAuthenticated_1.ensureAuthenticated);
+dailyPostingRouter.use(ensureAdmin_1.ensureAdmin);
+dailyPostingRouter.post('/', new CreateDailyPostingController_1.CreateDailyPostingController().handle);
+dailyPostingRouter.get('/dashboard', new DashboardController_1.DashboardController().handle);
+dailyPostingRouter.get('/reports/indicators', new GetIndicatorsReportController_1.GetIndicatorsReportController().handle);

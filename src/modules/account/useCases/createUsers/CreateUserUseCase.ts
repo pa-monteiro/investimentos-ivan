@@ -16,7 +16,7 @@ class CreateUserUseCase{
         private productsRepository: IProductsRepository
     ){}
 
-    async execute({name, email,deadline, password, products }: ICreateUserDto) : Promise<User>{
+    async execute({name, email,deadline, password }: ICreateUserDto, products: string[]) : Promise<User>{
         const userAlreadyExists = await this.usersRepository.findByEmail(email);
         if(userAlreadyExists){
             throw new AppError('Usuário já está cadastrado.')

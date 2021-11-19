@@ -4,6 +4,9 @@ import { User } from "@modules/account/infra/typeorm/entities/User";
 import { IUsersRepository } from "@modules/account/repositories/IUsersRepository";
 
 class UsersRepositoryInMemory implements IUsersRepository {
+    async findByUserIdProducts(id: string): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
     users: User[] = [];
 
     async create(data: ICreateUserDto): Promise<User> {
@@ -16,7 +19,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
         return user;
     }
 
-    updateById(id: string, { deadline, email, name}: IUpdateUserDTO): Promise<void> {
+    async updateById(id: string, { deadline, email, name}: IUpdateUserDTO): Promise<void> {
         const user = this.users.find(u => u.id === id);
 
         user.email = email;

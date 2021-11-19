@@ -3,6 +3,9 @@ import { Product } from "@modules/products/infra/typeorm/entities/Product";
 import { IProductsRepository } from "../IProductsRepository";
 
 class InMemoryProductsRepository implements IProductsRepository {
+    update(id: string, data: ICreateProductDTO): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
     products:Product[] = [];
    
     async create({ name, type }: ICreateProductDTO): Promise<Product> {

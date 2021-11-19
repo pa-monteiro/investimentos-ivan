@@ -18,20 +18,20 @@ class PaymentRepository implements IPaymentRepository{
         .getMany();
         const products = [];
 
-        allValues.map(v => {            
-            if(v.type === 'entries'){
-                if(products.filter(p => p.product.id === v.product.id)){
-                    const product = products.filter(v => v.product.id)
-                    product.value += v.value;
-                    products.push(v);
-                }else{
-                products.push(v);
-                }
-            }else{
-                products.push(v);
-            }
-        })
-return products;
+        // allValues.map(v => {            
+        //     if(v.type === 'entries'){
+        //         if(products.filter(p => p.product.id === v.product.id)){
+        //             const product = products.filter(v => v.product.id)
+        //             product.values += v.value;
+        //             products.push(v);
+        //         }else{
+        //         products.push(v);
+        //         }
+        //     }else{
+        //         products.push(v);
+        //     }
+        // })
+return allValues;
         // const entries = allValues.filter(e => e.type === 'entries');
         // const exits = allValues.filter(e => e.type === 'exits');
         // const sumEntries = entries.reduce((acc, e) => acc + parseFloat(e.value),0)

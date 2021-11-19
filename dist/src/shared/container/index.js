@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var tsyringe_1 = require("tsyringe");
+require("@shared/container/providers");
+var UsersRepository_1 = require("@modules/account/infra/typeorm/repositories/UsersRepository");
+var ProductsRepository_1 = require("@modules/products/infra/typeorm/repositories/ProductsRepository");
+var DailyPostingRepository_1 = require("@modules/daily_posting/infra/typeorm/repositories/DailyPostingRepository");
+var PaymentRepository_1 = require("@modules/payments/infra/typeorm/repositories/PaymentRepository");
+tsyringe_1.container.registerSingleton("UsersRepository", UsersRepository_1.UsersRepository);
+tsyringe_1.container.registerSingleton("ProductsRepository", ProductsRepository_1.ProductsRepository);
+tsyringe_1.container.registerSingleton("DailyPostingRepository", DailyPostingRepository_1.DailyPostingRepository);
+tsyringe_1.container.registerSingleton("PaymentsRepository", PaymentRepository_1.PaymentRepository);
