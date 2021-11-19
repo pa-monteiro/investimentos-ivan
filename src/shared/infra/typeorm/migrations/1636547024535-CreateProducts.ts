@@ -26,6 +26,14 @@ export class CreateProducts1636547024535 implements MigrationInterface {
                         type: "numeric"
                     },
                     {
+                        name: "deadline_transaction",
+                        type: "numeric"
+                    },
+                    {
+                        name: "value",
+                        type: "numeric"
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'

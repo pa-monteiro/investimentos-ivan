@@ -16,6 +16,12 @@ class Product {
     @Column()
     percentage: string;
 
+    @Column()
+    deadline_transaction: number;
+
+    @Column()
+    value?: number;
+
     @CreateDateColumn()
     created_at: Date;
 

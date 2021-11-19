@@ -22,7 +22,8 @@ export async function ensureAuthenticated(req: Request, res: Response, next: Nex
        }
 
        request.user = {
-           id: user_id
+           id: user_id,
+           isAdmin: user.isAdmin
        }
 
        next();

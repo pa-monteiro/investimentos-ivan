@@ -9,6 +9,7 @@ interface IUsersRepository{
     listAll(): Promise<User[]>;
     removeIds(ids: string[]): Promise<void>;
     updateById(id: string, data: IUpdateUserDTO): Promise<void>;
+    findByUserIdProducts(id: string): Promise<User>;
 }
 
 export {

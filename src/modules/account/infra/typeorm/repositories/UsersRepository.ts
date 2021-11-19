@@ -12,6 +12,12 @@ class UsersRepository implements IUsersRepository {
         this.repository = getRepository(User)
     }
 
+    async findByUserIdProducts(id: string): Promise<User> {
+       return await this.repository.findOne(id,{
+           relations: ['products']
+       });
+    }
+
     async updateById(id: string, data: IUpdateUserDTO): Promise<void> {
        await this.repository.update(id, data)
     }

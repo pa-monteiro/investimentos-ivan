@@ -1,15 +1,14 @@
 {
     "type": "postgres",
     "port": 5432,
-    "host": "ec2-44-198-236-169.compute-1.amazonaws.com",
-    "username": "pjgmaaowbsumpf",
-    "password": "4819723090675007f1c71c240989e62b42e80e016a77141eeb691cbb70a0ed21",
-    "database": "dflh9fa000o3si",
+    "host": "database",
+    "username": "docker",
+    "password": "ignite",
+    "database": "investimentos",
     "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
     "entities": ["./src/modules/**/entities/*.ts"],
     "cli": {
         "migrationsDir": "./src/shared/infra/typeorm/migrations",
         "entitiesDir": "./src/entity"
-    },
-    "ssl": { "rejectUnauthorized": false }
+    }
  }

@@ -14,7 +14,7 @@ export class CreateDailyPostings1636678232713 implements MigrationInterface {
                     },
                     {
                         name: "value",
-                        type: "varchar",
+                        type: "numeric",
                     },
                     {
                         name: "date",
