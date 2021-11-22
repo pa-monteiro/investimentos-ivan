@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Payment = void 0;
 
-var _User = require("@modules/account/infra/typeorm/entities/User");
+var _User = require("../../../../account/infra/typeorm/entities/User");
 
-var _Product = require("@modules/products/infra/typeorm/entities/Product");
+var _Product = require("../../../../products/infra/typeorm/entities/Product");
 
 var _typeorm = require("typeorm");
 

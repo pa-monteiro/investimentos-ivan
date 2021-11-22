@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CreatePaymentUseCase = void 0;
 
-var _IPaymentRepository = require("@modules/payments/repositories/IPaymentRepository");
+var _IPaymentRepository = require("../../repositories/IPaymentRepository");
 
 var _tsyringe = require("tsyringe");
 

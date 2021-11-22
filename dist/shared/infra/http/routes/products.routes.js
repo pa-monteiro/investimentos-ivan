@@ -5,17 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.productsRouter = void 0;
 
-var _CreateProductsController = require("@modules/products/useCases/createProducts/CreateProductsController");
+var _CreateProductsController = require("../../../../modules/products/useCases/createProducts/CreateProductsController");
 
-var _FindProductByIdController = require("@modules/products/useCases/findProductById/FindProductByIdController");
+var _FindProductByIdController = require("../../../../modules/products/useCases/findProductById/FindProductByIdController");
 
-var _GetProductsByUserController = require("@modules/products/useCases/getProductsByUser/GetProductsByUserController");
+var _GetProductsByUserController = require("../../../../modules/products/useCases/getProductsByUser/GetProductsByUserController");
 
-var _ListProductsController = require("@modules/products/useCases/listProducts/ListProductsController");
+var _ListProductsController = require("../../../../modules/products/useCases/listProducts/ListProductsController");
 
-var _RemoveProductsController = require("@modules/products/useCases/removeProducts/RemoveProductsController");
+var _RemoveProductsController = require("../../../../modules/products/useCases/removeProducts/RemoveProductsController");
 
-var _UpdateProductsController = require("@modules/products/useCases/updateProducts/UpdateProductsController");
+var _UpdateProductsController = require("../../../../modules/products/useCases/updateProducts/UpdateProductsController");
 
 var _express = require("express");
 

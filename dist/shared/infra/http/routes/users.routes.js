@@ -9,23 +9,23 @@ var _express = require("express");
 
 var _multer = _interopRequireDefault(require("multer"));
 
-var _UpdateUserAvatarController = require("@modules/account/useCases/updateUserAvatar/UpdateUserAvatarController");
+var _UpdateUserAvatarController = require("../../../../modules/account/useCases/updateUserAvatar/UpdateUserAvatarController");
 
-var _CreateUserController = require("@modules/account/useCases/createUsers/CreateUserController");
+var _CreateUserController = require("../../../../modules/account/useCases/createUsers/CreateUserController");
 
-var _ListUsersController = require("@modules/account/useCases/listUsers/ListUsersController");
+var _ListUsersController = require("../../../../modules/account/useCases/listUsers/ListUsersController");
 
-var _RemoveUsersController = require("@modules/account/useCases/removeUsers/RemoveUsersController");
+var _RemoveUsersController = require("../../../../modules/account/useCases/removeUsers/RemoveUsersController");
 
-var _upload = _interopRequireDefault(require("@config/upload"));
+var _upload = _interopRequireDefault(require("../../../../config/upload"));
 
-var _ensureAuthenticated = require("@shared/infra/http/middlewares/ensureAuthenticated");
+var _ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 
 var _ensureAdmin = require("../middlewares/ensureAdmin");
 
-var _FindUserByIdController = require("@modules/account/useCases/findUserById/FindUserByIdController");
+var _FindUserByIdController = require("../../../../modules/account/useCases/findUserById/FindUserByIdController");
 
-var _UpdateUserController = require("@modules/account/useCases/updateUser/UpdateUserController");
+var _UpdateUserController = require("../../../../modules/account/useCases/updateUser/UpdateUserController");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

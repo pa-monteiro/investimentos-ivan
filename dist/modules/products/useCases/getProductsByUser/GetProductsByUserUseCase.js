@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.GetProductsByUserUseCase = void 0;
 
-var _IUsersRepository = require("@modules/account/repositories/IUsersRepository");
+var _IUsersRepository = require("../../../account/repositories/IUsersRepository");
 
 var _tsyringe = require("tsyringe");
 

@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.dailyPostingRouter = void 0;
 
-var _CreateDailyPostingController = require("@modules/daily_posting/useCases/createDailyPosting/CreateDailyPostingController");
+var _CreateDailyPostingController = require("../../../../modules/daily_posting/useCases/createDailyPosting/CreateDailyPostingController");
 
-var _GetIndicatorsReportController = require("@modules/daily_posting/useCases/getIndicatorsReport/GetIndicatorsReportController");
+var _GetIndicatorsReportController = require("../../../../modules/daily_posting/useCases/getIndicatorsReport/GetIndicatorsReportController");
 
-var _DashboardController = require("@modules/payments/useCases/dashboard/DashboardController");
+var _DashboardController = require("../../../../modules/payments/useCases/dashboard/DashboardController");
 
 var _express = require("express");
 

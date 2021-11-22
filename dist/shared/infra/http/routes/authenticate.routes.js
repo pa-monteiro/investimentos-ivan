@@ -7,7 +7,7 @@ exports.authenticateRoutes = void 0;
 
 var _express = require("express");
 
-var _AuthenticateUserController = require("@modules/account/useCases/authenticateUser/AuthenticateUserController");
+var _AuthenticateUserController = require("../../../../modules/account/useCases/authenticateUser/AuthenticateUserController");
 
 const authenticateRoutes = (0, _express.Router)();
 exports.authenticateRoutes = authenticateRoutes;

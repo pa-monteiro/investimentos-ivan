@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DailyPostingRepository = void 0;
 
-var _User = require("@modules/account/infra/typeorm/entities/User");
+var _User = require("../../../../account/infra/typeorm/entities/User");
 
-var _Payment = require("@modules/payments/infra/typeorm/entities/Payment");
+var _Payment = require("../../../../payments/infra/typeorm/entities/Payment");
 
 var _dayjs = _interopRequireDefault(require("dayjs"));
 

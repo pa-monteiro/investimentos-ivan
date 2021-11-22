@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ensureAuthenticated = ensureAuthenticated;
 
-var _AppError = require("@shared/errors/AppError");
+var _AppError = require("../../../errors/AppError");
 
 var _express = require("express");
 
 var _jsonwebtoken = require("jsonwebtoken");
 
-var _UsersRepository = require("@modules/account/infra/typeorm/repositories/UsersRepository");
+var _UsersRepository = require("../../../../modules/account/infra/typeorm/repositories/UsersRepository");
 
 async function ensureAuthenticated(req, res, next) {
   const authHeader = req.headers.authorization;

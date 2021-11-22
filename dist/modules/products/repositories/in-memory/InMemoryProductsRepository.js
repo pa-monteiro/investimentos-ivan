@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.InMemoryProductsRepository = void 0;
 
-var _Product = require("@modules/products/infra/typeorm/entities/Product");
+var _Product = require("../../infra/typeorm/entities/Product");
 
 class InMemoryProductsRepository {
   constructor() {
