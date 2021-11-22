@@ -7,12 +7,18 @@ exports.UsersRepository = void 0;
 
 var _typeorm = require("typeorm");
 
-var _User = require("../entities/User");
+var _User = require("@modules/account/infra/typeorm/entities/User");
 
 class UsersRepository {
   constructor() {
     this.repository = void 0;
     this.repository = (0, _typeorm.getRepository)(_User.User);
+  }
+
+  async findByUserIdProducts(id) {
+    return await this.repository.findOne(id, {
+      relations: ['products']
+    });
   }
 
   async updateById(id, data) {

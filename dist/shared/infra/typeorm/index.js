@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _typeorm = require("typeorm");
 
-var _default = async (host = "ec2-44-198-236-169.compute-1.amazonaws.com") => {
+var _default = async (host = "database") => {
   const defaultOptions = await (0, _typeorm.getConnectionOptions)();
 
   try {

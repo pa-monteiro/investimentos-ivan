@@ -17,7 +17,7 @@ class CreateDailyPostings1636678232713 {
         isPrimary: true
       }, {
         name: "value",
-        type: "varchar"
+        type: "numeric"
       }, {
         name: "date",
         type: "timestamp"

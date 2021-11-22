@@ -25,9 +25,8 @@ class CreateUserController {
       name,
       email,
       deadline,
-      password,
-      products
-    });
+      password
+    }, products);
     return res.status(201).send();
   }
 

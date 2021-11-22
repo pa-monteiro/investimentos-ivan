@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.RemoveProductsUseCase = void 0;
 
-var _IProductsRepository = require("../../repositories/IProductsRepository");
+var _IProductsRepository = require("@modules/products/repositories/IProductsRepository");
 
-var _AppError = require("../../../../shared/errors/AppError");
+var _AppError = require("@shared/errors/AppError");
 
 var _tsyringe = require("tsyringe");
 

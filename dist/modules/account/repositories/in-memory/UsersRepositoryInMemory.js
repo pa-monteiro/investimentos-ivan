@@ -5,11 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _User = require("../../infra/typeorm/entities/User");
+var _User = require("@modules/account/infra/typeorm/entities/User");
 
 class UsersRepositoryInMemory {
   constructor() {
     this.users = [];
+  }
+
+  async findByUserIdProducts(id) {
+    throw new Error("Method not implemented.");
   }
 
   async create(data) {
@@ -19,7 +23,7 @@ class UsersRepositoryInMemory {
     return user;
   }
 
-  updateById(id, {
+  async updateById(id, {
     deadline,
     email,
     name

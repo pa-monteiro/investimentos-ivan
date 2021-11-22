@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CreateDailyPostingUseCase = void 0;
 
-var _IDailyPosting = require("../../repositories/IDailyPosting");
+var _IDailyPosting = require("@modules/daily_posting/repositories/IDailyPosting");
 
 var _tsyringe = require("tsyringe");
 

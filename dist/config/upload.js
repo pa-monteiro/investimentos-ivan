@@ -19,6 +19,8 @@ var _default = {
       storage: _multer.default.diskStorage({
         destination: (0, _path.resolve)(__dirname, "..", "..", folder),
         filename: (request, file, callback) => {
+          console.log(file);
+
           const fileHash = _crypto.default.randomBytes(16).toString("hex");
 
           const fileName = `${fileHash}-${file.originalname}`;

@@ -9,7 +9,7 @@ var _typeorm = require("typeorm");
 
 var _uuid = require("uuid");
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _dec15, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _dec15, _dec16, _dec17, _dec18, _dec19, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8;
 
 function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -17,7 +17,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-let Product = (_dec = (0, _typeorm.Entity)("products"), _dec2 = Reflect.metadata("design:type", Function), _dec3 = Reflect.metadata("design:paramtypes", []), _dec4 = (0, _typeorm.PrimaryColumn)(), _dec5 = Reflect.metadata("design:type", String), _dec6 = (0, _typeorm.Column)(), _dec7 = Reflect.metadata("design:type", String), _dec8 = (0, _typeorm.Column)(), _dec9 = Reflect.metadata("design:type", String), _dec10 = (0, _typeorm.Column)(), _dec11 = Reflect.metadata("design:type", String), _dec12 = (0, _typeorm.CreateDateColumn)(), _dec13 = Reflect.metadata("design:type", typeof Date === "undefined" ? Object : Date), _dec14 = (0, _typeorm.UpdateDateColumn)(), _dec15 = Reflect.metadata("design:type", typeof Date === "undefined" ? Object : Date), _dec(_class = _dec2(_class = _dec3(_class = (_class2 = class Product {
+let Product = (_dec = (0, _typeorm.Entity)("products"), _dec2 = Reflect.metadata("design:type", Function), _dec3 = Reflect.metadata("design:paramtypes", []), _dec4 = (0, _typeorm.PrimaryColumn)(), _dec5 = Reflect.metadata("design:type", String), _dec6 = (0, _typeorm.Column)(), _dec7 = Reflect.metadata("design:type", String), _dec8 = (0, _typeorm.Column)(), _dec9 = Reflect.metadata("design:type", String), _dec10 = (0, _typeorm.Column)(), _dec11 = Reflect.metadata("design:type", String), _dec12 = (0, _typeorm.Column)(), _dec13 = Reflect.metadata("design:type", Number), _dec14 = (0, _typeorm.Column)(), _dec15 = Reflect.metadata("design:type", Number), _dec16 = (0, _typeorm.CreateDateColumn)(), _dec17 = Reflect.metadata("design:type", typeof Date === "undefined" ? Object : Date), _dec18 = (0, _typeorm.UpdateDateColumn)(), _dec19 = Reflect.metadata("design:type", typeof Date === "undefined" ? Object : Date), _dec(_class = _dec2(_class = _dec3(_class = (_class2 = class Product {
   constructor() {
     _initializerDefineProperty(this, "id", _descriptor, this);
 
@@ -27,9 +27,13 @@ let Product = (_dec = (0, _typeorm.Entity)("products"), _dec2 = Reflect.metadata
 
     _initializerDefineProperty(this, "percentage", _descriptor4, this);
 
-    _initializerDefineProperty(this, "created_at", _descriptor5, this);
+    _initializerDefineProperty(this, "deadline_transaction", _descriptor5, this);
 
-    _initializerDefineProperty(this, "updated_at", _descriptor6, this);
+    _initializerDefineProperty(this, "value", _descriptor6, this);
+
+    _initializerDefineProperty(this, "created_at", _descriptor7, this);
+
+    _initializerDefineProperty(this, "updated_at", _descriptor8, this);
 
     if (!this.id) {
       this.id = (0, _uuid.v4)();
@@ -56,12 +60,22 @@ let Product = (_dec = (0, _typeorm.Entity)("products"), _dec2 = Reflect.metadata
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "created_at", [_dec12, _dec13], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "deadline_transaction", [_dec12, _dec13], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "updated_at", [_dec14, _dec15], {
+}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "value", [_dec14, _dec15], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "created_at", [_dec16, _dec17], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "updated_at", [_dec18, _dec19], {
   configurable: true,
   enumerable: true,
   writable: true,

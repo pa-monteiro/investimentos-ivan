@@ -15,9 +15,12 @@ var _products = require("./products.routes");
 
 var _daily_posting = require("./daily_posting.routes");
 
+var _payments = require("./payments.routes");
+
 const router = (0, _express.Router)();
 exports.router = router;
 router.use("/users", _users.usersRoutes);
 router.use("/sessions", _authenticate.authenticateRoutes);
 router.use("/products", _products.productsRouter);
 router.use("/daily-posting", _daily_posting.dailyPostingRouter);
+router.use('/payments', _payments.paymentsRouter);

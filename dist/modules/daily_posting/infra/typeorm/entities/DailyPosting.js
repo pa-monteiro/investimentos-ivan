@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DailyPosting = void 0;
 
-var _User = require("../../../../account/infra/typeorm/entities/User");
+var _User = require("@modules/account/infra/typeorm/entities/User");
 
 var _typeorm = require("typeorm");
 

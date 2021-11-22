@@ -15,13 +15,13 @@ var _cors = _interopRequireDefault(require("cors"));
 
 var _swagger = _interopRequireDefault(require("../../../swagger.json"));
 
-var _typeorm = _interopRequireDefault(require("../typeorm"));
+var _typeorm = _interopRequireDefault(require("@shared/infra/typeorm"));
 
-require("../../container");
+require("@shared/container");
 
-var _routes = require("./routes");
+var _routes = require("@shared/infra/http/routes");
 
-var _AppError = require("../../errors/AppError");
+var _AppError = require("@shared/errors/AppError");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

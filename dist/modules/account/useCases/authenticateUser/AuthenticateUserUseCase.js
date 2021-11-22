@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AuthenticateUserUseCase = void 0;
 
-var _IUsersRepository = require("../../repositories/IUsersRepository");
+var _IUsersRepository = require("@modules/account/repositories/IUsersRepository");
 
 var _tsyringe = require("tsyringe");
 
@@ -13,7 +13,7 @@ var _bcrypt = require("bcrypt");
 
 var _jsonwebtoken = require("jsonwebtoken");
 
-var _AppError = require("../../../../shared/errors/AppError");
+var _AppError = require("@shared/errors/AppError");
 
 var _dec, _dec2, _dec3, _dec4, _class;
 
