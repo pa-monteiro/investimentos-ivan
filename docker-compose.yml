@@ -6,10 +6,10 @@ services:
     container_name: database_investimentos
     restart: always
     ports:
-      - 5432:5432
+      - 65035:5432
     environment:
       - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=ignite
+      - POSTGRES_PASSWORD=&F&f9ZN7^ktF
       - POSTGRES_DB=investimentos
     volumes:
       - pgdata:/data/postgres
