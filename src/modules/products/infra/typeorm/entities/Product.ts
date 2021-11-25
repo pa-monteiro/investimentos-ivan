@@ -17,10 +17,10 @@ class Product {
     percentage: string;
 
     @Column()
-    deadline_transaction: number;
+    withdrawal_deadline: number;
 
     @Column()
-    value?: number;
+    deadline_contribution: number;
 
     @CreateDateColumn()
     created_at: Date;

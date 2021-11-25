@@ -14,6 +14,27 @@ class User {
     email: string;
 
     @Column()
+    address: string;
+
+    @Column()
+    cep: number;
+
+    @Column()
+    cpf: number;
+
+    @Column()
+    number: number;
+
+    @Column()
+    neighborhood: string;
+
+    @Column()
+    complement: string;
+
+    @Column()
+    phone: number;
+
+    @Column({select: false})
     password: string;
 
     @Column()
@@ -21,9 +42,6 @@ class User {
 
     @Column()
     avatar: string;
-    
-    @Column()
-    deadline: number;
     
     @ManyToMany(() => Product)
     @JoinTable({

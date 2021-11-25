@@ -5,4 +5,5 @@ export interface IDailyPosting {
     create(data: ICreateDailyPostingDTO): Promise<DailyPosting>;
     getValuesToDashboardAdmin();
     getValuesToIndicatorsReport();
+    getDailyPostingsByMonth();
 }

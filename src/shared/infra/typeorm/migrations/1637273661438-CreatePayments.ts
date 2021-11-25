@@ -29,9 +29,34 @@ export class CreatePayments1637273661438 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
+                        name: "start_date",
+                        type: "date",
+                        isNullable: true
+                    },
+                    {
+                        name: "release_date",
+                        type: "date",
+                        isNullable: true
+                    },
+                    {
                         name: "receipt_image",
                         type: "varchar",
                         isNullable: true
+                    },
+                    {
+                        name: "accepted_at",
+                        type: "date",
+                        isNullable: true
+                    },
+                    {
+                        name: "accepted_by",
+                        type: "uuid",
+                        isNullable: true
+                    },
+                    {
+                        name: "status",
+                        type: "enum",
+                        enum: ["pending","accepted","released","free", "canceled"]
                     },
                     {
                         name: "created_at",
@@ -43,6 +68,32 @@ export class CreatePayments1637273661438 implements MigrationInterface {
                         type: "timestamp",
                         default: "now()"
                     }
+                ],
+                foreignKeys: [
+                    {
+                        name: 'FKPaymentsProducts',
+                        referencedTableName: 'products',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['product_id'],
+                        onDelete: 'SET NULL',
+                        onUpdate: 'CASCADE'
+                    },
+                    {
+                        name: 'FKPaymentsUser',
+                        referencedTableName: 'users',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['user_id'],
+                        onDelete: 'SET NULL',
+                        onUpdate: 'CASCADE'
+                    },
+                    {
+                        name: 'FKPaymentsAcceptedBy',
+                        referencedTableName: 'users',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['accepted_by'],
+                        onDelete: 'SET NULL',
+                        onUpdate: 'CASCADE'
+                    },
                 ]
             })
         )

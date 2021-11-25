@@ -3,6 +3,14 @@ import { Product } from "@modules/products/infra/typeorm/entities/Product";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 } from "uuid";
 
+export enum PaymentStatusEnum {
+    PENDING = 'pending',
+    CANCELED = 'canceled',
+    ACCEPTED = 'accepted',
+    RELEASED = 'released',
+    FREE = 'free'
+}
+
 @Entity("payments")
 class Payment {
 
@@ -35,6 +43,27 @@ class Payment {
 
     @Column()
     receipt_image: string;
+
+    @Column()
+    release_date: Date;
+
+    @Column()
+    start_date: Date;
+
+    @Column()
+    accepted_at: Date;
+
+    @Column()
+    status: string;
+
+    @ManyToOne(() => User)
+    @JoinColumn({
+        name: "accepted_by"
+    })
+    userAcceptedBy: User;
+
+    @Column()
+    accepted_by: string;
 
     @CreateDateColumn()
     created_at: Date;

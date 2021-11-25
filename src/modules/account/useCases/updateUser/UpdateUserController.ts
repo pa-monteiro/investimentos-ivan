@@ -8,8 +8,9 @@ class UpdateUserController {
     async handle(request: Request, response: Response): Promise<Response>{
         const { id } = request.params;
         const data: IUpdateUserDTO = request.body
+        const { products } = request.body;
         const useCase = container.resolve(UpdateUserUseCase);
-        await useCase.execute(id, data);
+        await useCase.execute(id, data, products);
 
         return response.status(204).send();
     }

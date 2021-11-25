@@ -3,5 +3,5 @@ export interface CreatePaymentDTO {
     user_id: string;
     value: number;
     type: string;
-    receipt_image: string;
+    status?: string;
 }

@@ -14,16 +14,8 @@ class FindUserByIdUseCase {
         @inject("UsersRepository")
         private repository: IUsersRepository
     ){}
-    async execute(id: string): Promise<IResponse>{
-        const user: User = await this.repository.findById(id);
-
-        const response: IResponse = {
-            name: user.name,
-            email: user.email,
-            deadline: user.deadline
-        }
-
-        return response;
+    async execute(id: string): Promise<User>{
+        return await this.repository.findById(id);
     }
 }
 

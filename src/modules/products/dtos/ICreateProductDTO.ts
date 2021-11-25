@@ -7,6 +7,6 @@ export interface ICreateProductDTO {
     name: string;
     type: FundsType;
     percentage: string;
-    deadline_transaction:number;
-    value?: number;
+    withdrawal_deadline:number;
+    deadline_contribution: number;
 }

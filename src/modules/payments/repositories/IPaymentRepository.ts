@@ -3,5 +3,7 @@ import { Payment } from "../infra/typeorm/entities/Payment";
 
 export interface IPaymentRepository {
     create(data: CreatePaymentDTO): Promise<Payment>;
-    findByUser(id: string);
+    findByUserId(id: string);
+    findById(id: string): Promise<Payment>;
+    findAll(): Promise<Payment[]>;
 }

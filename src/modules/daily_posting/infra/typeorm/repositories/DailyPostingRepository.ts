@@ -17,6 +17,18 @@ class DailyPostingRepository implements IDailyPosting {
         this.paymentsRepository = getRepository(Payment)
     }
 
+    async getDailyPostingsByMonth() {
+       const startMonth = dayjs().startOf("month").toDate();
+        const endMonth = dayjs().endOf("month").toDate();
+
+        return await this.repository
+        .find({
+            where: {
+                date: Between(startMonth,endMonth)
+            }
+        });
+    }
+
     async getValuesToDashboardAdmin() {
         const startMonth = dayjs().startOf("month").toDate();
         const endMonth = dayjs().endOf("month").toDate();

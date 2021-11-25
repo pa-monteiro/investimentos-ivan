@@ -8,7 +8,7 @@ interface IUsersRepository{
     findById(id: string): Promise<User>;
     listAll(): Promise<User[]>;
     removeIds(ids: string[]): Promise<void>;
-    updateById(id: string, data: IUpdateUserDTO): Promise<void>;
+    updateById(id: string, data: IUpdateUserDTO): Promise<User>;
     findByUserIdProducts(id: string): Promise<User>;
 }
 

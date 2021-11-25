@@ -9,7 +9,7 @@ class GetPaymentsByUserUseCase {
         private repository: IPaymentRepository
     ){}
     async execute(id: string){
-        return await this.repository.findByUser(id);
+        return await this.repository.findByUserId(id);
     }
 }
 

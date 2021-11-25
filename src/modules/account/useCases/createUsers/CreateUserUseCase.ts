@@ -16,14 +16,16 @@ class CreateUserUseCase{
         private productsRepository: IProductsRepository
     ){}
 
-    async execute({name, email,deadline, password }: ICreateUserDto, products: string[]) : Promise<User>{
+    async execute(data: ICreateUserDto, products: string[]) : Promise<User>{
+        const { email, password } = data;
         const userAlreadyExists = await this.usersRepository.findByEmail(email);
         if(userAlreadyExists){
             throw new AppError('Usuário já está cadastrado.')
         }
         
         const passwordHash = await hash(password, 8);
-        const user = await this.usersRepository.create({name, email,deadline, password: passwordHash})
+        data.password = passwordHash;
+        const user = await this.usersRepository.create(data);
         if(products){
             const product = await this.productsRepository.findByIds(products);
     

@@ -11,6 +11,8 @@ import { IDailyPosting } from '@modules/daily_posting/repositories/IDailyPosting
 import { DailyPostingRepository } from '@modules/daily_posting/infra/typeorm/repositories/DailyPostingRepository';
 import { PaymentRepository } from '@modules/payments/infra/typeorm/repositories/PaymentRepository';
 import { IPaymentRepository } from '@modules/payments/repositories/IPaymentRepository';
+import { IBankAccountsRepository } from '@modules/account/repositories/IBankAccountsRepository';
+import { BankAccountsRepository } from '@modules/account/infra/typeorm/repositories/BankAccountsRepository';
 
 container.registerSingleton<IUsersRepository>(
     "UsersRepository",
@@ -30,4 +32,9 @@ container.registerSingleton<IDailyPosting>(
 container.registerSingleton<IPaymentRepository>(
     "PaymentsRepository",
     PaymentRepository
+)
+
+container.registerSingleton<IBankAccountsRepository>(
+    "BankAccountsRepository",
+    BankAccountsRepository
 )

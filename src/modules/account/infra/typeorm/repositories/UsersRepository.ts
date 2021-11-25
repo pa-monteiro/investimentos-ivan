@@ -18,8 +18,10 @@ class UsersRepository implements IUsersRepository {
        });
     }
 
-    async updateById(id: string, data: IUpdateUserDTO): Promise<void> {
-       await this.repository.update(id, data)
+    async updateById(id: string, data: IUpdateUserDTO): Promise<User> {
+        const user = await this.repository.findOne(id);
+
+        return await this.repository.save({id,...data})
     }
 
     async removeIds(ids: string[]): Promise<void> {
@@ -30,7 +32,7 @@ class UsersRepository implements IUsersRepository {
     
     async listAll(): Promise<User[]> {
         return await this.repository.find({
-            select: ["id", "name", "email", "deadline"],
+            select: ["id", "name", "email", "phone"],
             relations: ["products"]
         });
     }
@@ -44,7 +46,10 @@ class UsersRepository implements IUsersRepository {
     }
 
     async findByEmail(email: string): Promise<User> {
-        return await this.repository.findOne({email})
+        return await this.repository.findOne({
+            where: {email},
+            select: ['id','name','isAdmin','email','password']
+        })
     }
 
     async findById(id: string): Promise<User>{

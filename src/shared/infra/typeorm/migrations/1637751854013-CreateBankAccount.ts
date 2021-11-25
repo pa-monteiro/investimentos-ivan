@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateProducts1636547024535 implements MigrationInterface {
+export class CreateBankAccount1637751854013 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "products",
+                name: 'bank_accounts',
                 columns: [
                     {
                         name: "id",
@@ -13,25 +13,32 @@ export class CreateProducts1636547024535 implements MigrationInterface {
                         isPrimary: true
                     },
                     {
-                        name: "name",
-                        type: "varchar",
+                        name: "user_id",
+                        type: "uuid"
                     },
                     {
-                        name: "type",
-                        type: "enum",
-                        enum: ['fixed', 'variable']
+                        name: "isAdmin",
+                        type: "boolean"
                     },
                     {
-                        name: "percentage",
-                        type: "numeric"
+                        name: "full_name",
+                        type: "varchar"
                     },
                     {
-                        name: "withdrawal_deadline",
-                        type: "numeric"
+                        name: "agency",
+                        type: "varchar"
                     },
                     {
-                        name: "deadline_contribution",
-                        type: "numeric"
+                        name: "account",
+                        type: "varchar"
+                    },
+                    {
+                        name: "cpf",
+                        type: "varchar"
+                    },
+                    {
+                        name: "pix",
+                        type: "varchar"
                     },
                     {
                         name: 'created_at',
@@ -42,14 +49,14 @@ export class CreateProducts1636547024535 implements MigrationInterface {
                         name: 'updated_at',
                         type: 'timestamp',
                         default: 'now()'
-                    },
+                    }
                 ]
             })
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("products")
+        await queryRunner.dropTable('bank_accounts')
     }
 
 }
