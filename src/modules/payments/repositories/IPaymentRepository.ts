@@ -6,4 +6,6 @@ export interface IPaymentRepository {
     findByUserId(id: string);
     findById(id: string): Promise<Payment>;
     findAll(): Promise<Payment[]>;
+    accept(id: string, user_id: string): Promise<Payment>;
+    canceled(id: string, user_id: string): Promise<Payment>;
 }

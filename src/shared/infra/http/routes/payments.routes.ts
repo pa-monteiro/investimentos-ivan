@@ -8,6 +8,8 @@ import multer from 'multer';
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { FindAllController } from "@modules/payments/useCases/findAll/FindAllController";
 import { FindByIdController } from "@modules/payments/useCases/findById/FindByIdController";
+import { AcceptPaymentController } from "@modules/payments/useCases/acceptPayment/AcceptPaymentController";
+import { CanceledPaymentController } from "@modules/payments/useCases/canceledPayment/CanceledPaymentController";
 
 const paymentsRouter = Router();
 
@@ -21,6 +23,8 @@ paymentsRouter.put('/receipt/:id',uploadReceipt.single("file") ,new UpdatePaymen
 paymentsRouter.use(ensureAdmin)
 paymentsRouter.get('/', new FindAllController().handle);
 paymentsRouter.get('/:id', new FindByIdController().handle);
+paymentsRouter.put('/:id/accept', new AcceptPaymentController().handle);
+paymentsRouter.put('/:id/canceled', new CanceledPaymentController().handle);
 
 export {
     paymentsRouter
