@@ -45,7 +45,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd ~/app/api-investimento
+            cd /var/www/html/api.horizontinvestimentos.app
             yarn
             ./node_modules/.bin/typeorm migration:run
-            pm2 restart horizont_api
+            pm2 restart api_horizont
