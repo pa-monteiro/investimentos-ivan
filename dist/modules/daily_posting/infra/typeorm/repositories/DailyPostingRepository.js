@@ -27,6 +27,16 @@ class DailyPostingRepository {
     this.paymentsRepository = (0, _typeorm.getRepository)(_Payment.Payment);
   }
 
+  async getDailyPostingsByMonth() {
+    const startMonth = (0, _dayjs.default)().startOf("month").toDate();
+    const endMonth = (0, _dayjs.default)().endOf("month").toDate();
+    return await this.repository.find({
+      where: {
+        date: (0, _typeorm.Between)(startMonth, endMonth)
+      }
+    });
+  }
+
   async getValuesToDashboardAdmin() {
     const startMonth = (0, _dayjs.default)().startOf("month").toDate();
     const endMonth = (0, _dayjs.default)().endOf("month").toDate();

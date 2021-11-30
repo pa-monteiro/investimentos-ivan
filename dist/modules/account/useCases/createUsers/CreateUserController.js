@@ -14,8 +14,14 @@ class CreateUserController {
     const {
       name,
       email,
-      deadline,
       password,
+      phone,
+      cpf,
+      cep,
+      address,
+      number,
+      complement,
+      neighborhood,
       products
     } = req.body;
 
@@ -24,8 +30,14 @@ class CreateUserController {
     await ctn.execute({
       name,
       email,
-      deadline,
-      password
+      password,
+      phone,
+      cpf,
+      cep,
+      address,
+      number,
+      complement,
+      neighborhood
     }, products);
     return res.status(201).send();
   }

@@ -27,12 +27,11 @@ let CreateUserUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (t
     this.productsRepository = productsRepository;
   }
 
-  async execute({
-    name,
-    email,
-    deadline,
-    password
-  }, products) {
+  async execute(data, products) {
+    const {
+      email,
+      password
+    } = data;
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) {
@@ -40,12 +39,8 @@ let CreateUserUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (t
     }
 
     const passwordHash = await (0, _bcrypt.hash)(password, 8);
-    const user = await this.usersRepository.create({
-      name,
-      email,
-      deadline,
-      password: passwordHash
-    });
+    data.password = passwordHash;
+    const user = await this.usersRepository.create(data);
 
     if (products) {
       const product = await this.productsRepository.findByIds(products);

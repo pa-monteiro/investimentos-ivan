@@ -6,7 +6,7 @@ services:
     container_name: database_investimentos
     restart: always
     ports:
-      - 65035:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=pjgmaaowbsumpf
       - POSTGRES_PASSWORD=4819723090675007f1c71c240989e62b42e80e016a77141eeb691cbb70a0ed21

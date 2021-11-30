@@ -15,10 +15,13 @@ class UpdateUserController {
       id
     } = request.params;
     const data = request.body;
+    const {
+      products
+    } = request.body;
 
     const useCase = _tsyringe.container.resolve(_UpdateUserUseCase.UpdateUserUseCase);
 
-    await useCase.execute(id, data);
+    await useCase.execute(id, data, products);
     return response.status(204).send();
   }
 

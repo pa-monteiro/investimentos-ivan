@@ -26,10 +26,10 @@ class CreateProducts1636547024535 {
         name: "percentage",
         type: "numeric"
       }, {
-        name: "deadline_transaction",
+        name: "withdrawal_deadline",
         type: "numeric"
       }, {
-        name: "value",
+        name: "deadline_contribution",
         type: "numeric"
       }, {
         name: 'created_at',

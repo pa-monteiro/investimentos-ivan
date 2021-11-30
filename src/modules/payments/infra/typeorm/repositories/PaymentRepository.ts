@@ -92,8 +92,16 @@ class PaymentRepository implements IPaymentRepository{
         return payment;
     }
 
-    // tipos de aceite
-    // liberado - cron que gira toda meia noite procurando a coluna release_date se bater com o dia, mudar o status para free
+    async filterByUserIdAndProduct(user_id: string, product_id: string){
+        const dateNow = dayjs().tz('America/Sao_Paulo').format('YYYY-MM-DD');
+        return await this.repository.createQueryBuilder("payments")
+        .where("payments.user_id = :user_id", { user_id})
+        .andWhere("payments.product_id = :product_id", { product_id })
+        .andWhere("payments.status = :status OR payments.status = :status2", { status: 'accepted', status2: 'pending'})
+        // .andWhere("payments.release_date::date < :dateNow", { dateNow})
+        .getMany();
+    }
+
     // solicitar retirada - verifica se estiver livre, se sim verifica o valor, se sim, muda o status para pending and type exits, se aceitar, remove o valor do fundo
 
 }

@@ -19,7 +19,7 @@ let GetPaymentsByUserUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = func
   }
 
   async execute(id) {
-    return await this.repository.findByUser(id);
+    return await this.repository.findByUserId(id);
   }
 
 }) || _class) || _class) || _class) || _class);

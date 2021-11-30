@@ -27,6 +27,8 @@ var _FindUserByIdController = require("../../../../modules/account/useCases/find
 
 var _UpdateUserController = require("../../../../modules/account/useCases/updateUser/UpdateUserController");
 
+var _CreateBankAccountController = require("../../../../modules/account/useCases/createBankAccount/CreateBankAccountController");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const usersRoutes = (0, _express.Router)();
@@ -36,6 +38,7 @@ usersRoutes.post('/', new _CreateUserController.CreateUserController().handle);
 usersRoutes.use(_ensureAuthenticated.ensureAuthenticated);
 usersRoutes.patch('/avatar', uploadAvatar.single("avatar"), new _UpdateUserAvatarController.UpdateUserAvatarController().handle);
 usersRoutes.use(_ensureAdmin.ensureAdmin);
+usersRoutes.post('/bank-account', new _CreateBankAccountController.CreateBankAccountController().handle);
 usersRoutes.get('/', new _ListUsersController.ListUsersController().handle);
 usersRoutes.get('/:id', new _FindUserByIdController.FindUserByIdController().handle);
 usersRoutes.put('/:id/update', new _UpdateUserController.UpdateUserController().handle);

@@ -10,6 +10,7 @@ import { FindAllController } from "@modules/payments/useCases/findAll/FindAllCon
 import { FindByIdController } from "@modules/payments/useCases/findById/FindByIdController";
 import { AcceptPaymentController } from "@modules/payments/useCases/acceptPayment/AcceptPaymentController";
 import { CanceledPaymentController } from "@modules/payments/useCases/canceledPayment/CanceledPaymentController";
+import { WithdrawPaymentController } from "@modules/payments/useCases/withdrawPayment/WithdrawPaymentController";
 
 const paymentsRouter = Router();
 
@@ -19,6 +20,7 @@ paymentsRouter.use(ensureAuthenticated)
 paymentsRouter.get('/byUser', new GetPaymentsByUserController().handle);
 paymentsRouter.post('/',new CreatePaymentController().handle);
 paymentsRouter.put('/receipt/:id',uploadReceipt.single("file") ,new UpdatePaymentReceiptFileController().handle);
+paymentsRouter.post('/withdraw', new WithdrawPaymentController().handle);
 
 paymentsRouter.use(ensureAdmin)
 paymentsRouter.get('/', new FindAllController().handle);

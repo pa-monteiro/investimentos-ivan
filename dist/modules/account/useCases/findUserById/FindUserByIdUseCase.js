@@ -19,13 +19,7 @@ let FindUserByIdUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function 
   }
 
   async execute(id) {
-    const user = await this.repository.findById(id);
-    const response = {
-      name: user.name,
-      email: user.email,
-      deadline: user.deadline
-    };
-    return response;
+    return await this.repository.findById(id);
   }
 
 }) || _class) || _class) || _class) || _class);

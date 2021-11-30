@@ -27,9 +27,9 @@ let Product = (_dec = (0, _typeorm.Entity)("products"), _dec2 = Reflect.metadata
 
     _initializerDefineProperty(this, "percentage", _descriptor4, this);
 
-    _initializerDefineProperty(this, "deadline_transaction", _descriptor5, this);
+    _initializerDefineProperty(this, "withdrawal_deadline", _descriptor5, this);
 
-    _initializerDefineProperty(this, "value", _descriptor6, this);
+    _initializerDefineProperty(this, "deadline_contribution", _descriptor6, this);
 
     _initializerDefineProperty(this, "created_at", _descriptor7, this);
 
@@ -60,12 +60,12 @@ let Product = (_dec = (0, _typeorm.Entity)("products"), _dec2 = Reflect.metadata
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "deadline_transaction", [_dec12, _dec13], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "withdrawal_deadline", [_dec12, _dec13], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "value", [_dec14, _dec15], {
+}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "deadline_contribution", [_dec14, _dec15], {
   configurable: true,
   enumerable: true,
   writable: true,

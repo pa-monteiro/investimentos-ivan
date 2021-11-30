@@ -23,6 +23,36 @@ class CreateUsers1636546044991 {
         type: "varchar",
         isUnique: true
       }, {
+        name: "cpf",
+        type: "numeric",
+        isUnique: true,
+        isNullable: true
+      }, {
+        name: "phone",
+        type: "numeric",
+        isUnique: true,
+        isNullable: true
+      }, {
+        name: "cep",
+        type: "numeric",
+        isNullable: true
+      }, {
+        name: "address",
+        type: "varchar",
+        isNullable: true
+      }, {
+        name: "number",
+        type: "varchar",
+        isNullable: true
+      }, {
+        name: "neighborhood",
+        type: "varchar",
+        isNullable: true
+      }, {
+        name: "complement",
+        type: "varchar",
+        isNullable: true
+      }, {
         name: "password",
         type: "varchar"
       }, {
@@ -33,9 +63,6 @@ class CreateUsers1636546044991 {
         name: 'avatar',
         type: 'varchar',
         isNullable: true
-      }, {
-        name: 'deadline',
-        type: 'numeric'
       }, {
         name: "created_at",
         type: "timestamp",

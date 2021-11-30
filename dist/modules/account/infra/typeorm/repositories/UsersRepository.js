@@ -22,7 +22,11 @@ class UsersRepository {
   }
 
   async updateById(id, data) {
-    await this.repository.update(id, data);
+    const user = await this.repository.findOne(id);
+    return await this.repository.save({
+      id,
+      ...data
+    });
   }
 
   async removeIds(ids) {
@@ -35,7 +39,7 @@ class UsersRepository {
 
   async listAll() {
     return await this.repository.find({
-      select: ["id", "name", "email", "deadline"],
+      select: ["id", "name", "email", "phone"],
       relations: ["products"]
     });
   }
@@ -48,7 +52,10 @@ class UsersRepository {
 
   async findByEmail(email) {
     return await this.repository.findOne({
-      email
+      where: {
+        email
+      },
+      select: ['id', 'name', 'isAdmin', 'email', 'password']
     });
   }
 

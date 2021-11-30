@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CreatePaymentUseCase = void 0;
 
+var _Payment = require("../../infra/typeorm/entities/Payment");
+
 var _IPaymentRepository = require("../../repositories/IPaymentRepository");
 
 var _tsyringe = require("tsyringe");
@@ -19,6 +21,7 @@ let CreatePaymentUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function
   }
 
   async execute(data) {
+    data.status = _Payment.PaymentStatusEnum.PENDING;
     return await this.repository.create(data);
   }
 
