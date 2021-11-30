@@ -35,7 +35,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
-          target: "var/www/html/api.investimentos.app"
+          target: "/var/www/html/api.investimentos.app"
           
       - name: Update API
         uses: appleboy/ssh-action@master
