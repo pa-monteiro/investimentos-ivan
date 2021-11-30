@@ -35,7 +35,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
-          target: "~/app/api-investimento"
+          target: "var/www/html/api.investimentos.app"
           
       - name: Update API
         uses: appleboy/ssh-action@master
@@ -45,7 +45,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /var/www/html/api.horizontinvestimentos.app
+            cd /var/www/html/api.investimentos.app
             yarn
             ./node_modules/.bin/typeorm migration:run
             pm2 restart api_horizont
