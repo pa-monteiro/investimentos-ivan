@@ -6,7 +6,7 @@ class UpdatePaymentReceiptFileController {
 
     async handle(request: Request, response: Response): Promise<Response>{
         const { id } = request.params;
-        const file = request.file.filename;
+        const file = request.file.originalname;
         const useCase = container.resolve(UpdatePaymentReceiptFileUseCase);
         await useCase.execute(id, file);
 

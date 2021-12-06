@@ -1,19 +1,16 @@
 import multer from 'multer'
 import { resolve } from 'path';
-import crypto from 'crypto'
+
+const tmpFolder =  resolve(__dirname, "..", "..", "tmp");
 
 export default {
-    upload(folder: string, id?: string){
-        return {
+    tmpFolder,
             storage: multer.diskStorage({
-                destination: resolve(__dirname, "..", "..", folder),
+                destination: tmpFolder,
                 filename: (request, file, callback) => {
-                    const fileHash = id ?? crypto.randomBytes(16).toString("hex");
-                    const fileName = `${fileHash}-${file.originalname}`
+                    const fileName = file.originalname;
 
                     return callback(null, fileName);
                 }
             })
-        }
-    }
 }

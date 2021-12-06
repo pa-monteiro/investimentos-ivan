@@ -13,6 +13,9 @@ import { PaymentRepository } from '@modules/payments/infra/typeorm/repositories/
 import { IPaymentRepository } from '@modules/payments/repositories/IPaymentRepository';
 import { IBankAccountsRepository } from '@modules/account/repositories/IBankAccountsRepository';
 import { BankAccountsRepository } from '@modules/account/infra/typeorm/repositories/BankAccountsRepository';
+import { IStorageProvider } from './providers/StorageProvider/IStorageProvider';
+import { LocalStorageProvider } from './providers/StorageProvider/implementations/LocalStorageProvider';
+import { FirebaseStorageProvider } from './providers/StorageProvider/implementations/FirebaseStorageProvider';
 
 container.registerSingleton<IUsersRepository>(
     "UsersRepository",
@@ -37,4 +40,9 @@ container.registerSingleton<IPaymentRepository>(
 container.registerSingleton<IBankAccountsRepository>(
     "BankAccountsRepository",
     BankAccountsRepository
+)
+
+container.registerSingleton<IStorageProvider>(
+    "StorageProvider",
+    FirebaseStorageProvider
 )

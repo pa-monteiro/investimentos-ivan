@@ -15,7 +15,9 @@ class CreatePaymentUseCase {
 
     async execute(data: CreatePaymentDTO): Promise<Payment> {
         data.status = PaymentStatusEnum.PENDING;
-        return await this.repository.create(data);
+        const payment = await this.repository.create(data);
+
+        return payment;
     }
 
 }

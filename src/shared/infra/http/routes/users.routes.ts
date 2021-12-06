@@ -16,7 +16,7 @@ import { CreateBankAccountController } from '@modules/account/useCases/createBan
 
 const usersRoutes = Router();
 
-const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"))
+const uploadAvatar = multer(uploadConfig)
 
 usersRoutes.post('/', new CreateUserController().handle);
 usersRoutes.use(ensureAuthenticated)
