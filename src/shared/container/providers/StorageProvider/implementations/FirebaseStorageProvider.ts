@@ -1,9 +1,6 @@
-import fs from 'fs';
 import { resolve } from 'path'
 import { v4 as uuid } from 'uuid'
 import { IStorageProvider } from '../IStorageProvider';
-import { initializeApp, cert } from 'firebase-admin/app';
-import { getStorage } from 'firebase-admin/storage';
 import upload from '@config/upload';
 const firebaseAdmin = require('firebase-admin');
 
@@ -17,7 +14,7 @@ class FirebaseStorageProvider implements IStorageProvider {
             credential: firebaseAdmin.credential.cert(serviceAccount)
           }); 
 
-        const bucket = admin.storage().bucket('gs://horizontinvestimentos.appspot.com')
+        const bucket = admin.storage().bucket(process.env.FIREBASE_BUCKET)
         const originalName = resolve(upload.tmpFolder, file);
 
        const storage = await bucket.upload(originalName, {

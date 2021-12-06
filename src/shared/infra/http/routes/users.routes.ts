@@ -21,11 +21,11 @@ const uploadAvatar = multer(uploadConfig)
 usersRoutes.post('/', new CreateUserController().handle);
 usersRoutes.use(ensureAuthenticated)
 usersRoutes.patch('/avatar',uploadAvatar.single("avatar") ,new UpdateUserAvatarController().handle)
+usersRoutes.get('/:id', new FindUserByIdController().handle);
+usersRoutes.put('/:id/update', new UpdateUserController().handle);
 usersRoutes.use(ensureAdmin)
 usersRoutes.post('/bank-account', new CreateBankAccountController().handle);
 usersRoutes.get('/', new ListUsersController().handle);
-usersRoutes.get('/:id', new FindUserByIdController().handle);
-usersRoutes.put('/:id/update', new UpdateUserController().handle);
 usersRoutes.post('/remove', new RemoveUsersController().handle);
 
 

@@ -13,7 +13,7 @@ class UpdateUserUseCase {
         private productsRepository: IProductsRepository
     ){}
 
-    async execute(id: string, data: IUpdateUserDTO, products: string[]): Promise<void>{
+    async execute(id: string, data: IUpdateUserDTO, products?: string[]): Promise<void>{
         const user = await this.repository.updateById(id, data);
 
         if(products){

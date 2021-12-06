@@ -7,6 +7,14 @@ class UpdateUserController {
 
     async handle(request: Request, response: Response): Promise<Response>{
         const { id } = request.params;
+        if(!id){
+            const { id } = request.user;
+            const data: IUpdateUserDTO = request.body
+            const useCase = container.resolve(UpdateUserUseCase);
+            await useCase.execute(id, data);
+
+            return response.status(204).send();
+        }
         const data: IUpdateUserDTO = request.body
         const { products } = request.body;
         const useCase = container.resolve(UpdateUserUseCase);
