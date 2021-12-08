@@ -25,6 +25,9 @@ class DailyPostingRepository implements IDailyPosting {
         .find({
             where: {
                 date: Between(startMonth,endMonth)
+            },
+            order: {
+                date: 'DESC'
             }
         });
     }
@@ -99,6 +102,11 @@ class DailyPostingRepository implements IDailyPosting {
        return await this.repository.save(daily);
     }
 
+    async update(data: ICreateDailyPostingDTO): Promise<DailyPosting> {
+        const daily = this.repository.findOne(data.id);
+
+       return await this.repository.save({daily, ...data});
+    }
 
 }
 
