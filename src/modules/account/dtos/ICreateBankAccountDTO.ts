@@ -5,4 +5,5 @@ export interface ICreateBankAccountDTO {
     account: string;
     cpf: string;
     pix: string;
+    isAdmin?: boolean;
 }
