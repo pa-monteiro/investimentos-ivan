@@ -9,6 +9,12 @@ class BankAccountsRepository implements IBankAccountsRepository {
     constructor(){
         this.repository = getRepository(BankAccount)
     }
+
+   async getBankAccountAdmin(): Promise<BankAccount> {
+        return await this.repository.findOne({
+            where: { isAdmin: true }
+        })
+    }
     
    async findByUserId(user_id: string, isAdmin: boolean): Promise<BankAccount>{
         return await this.repository.findOne({

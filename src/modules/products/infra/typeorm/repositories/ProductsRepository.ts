@@ -34,7 +34,7 @@ class ProductsRepository implements IProductsRepository {
 
     async create(data: ICreateProductDTO): Promise<Product> {
        const product = this.repository.create(data);
-
+       
        return await this.repository.save(product);
     }
 

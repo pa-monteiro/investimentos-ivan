@@ -14,6 +14,7 @@ import { FindUserByIdController } from '@modules/account/useCases/findUserById/F
 import { UpdateUserController } from '@modules/account/useCases/updateUser/UpdateUserController';
 import { CreateBankAccountController } from '@modules/account/useCases/createBankAccount/CreateBankAccountController';
 import { FindByUserIdBankAccountController } from '@modules/account/useCases/findByUserIdBankAccount/FindByUserIdBankAccountController';
+import { FindByUserIdBankAccountAdminController } from '@modules/account/useCases/findByUserIdBankAccountAdmin/FindByUserIdBankAccountAdminController';
 
 const usersRoutes = Router();
 
@@ -27,9 +28,9 @@ usersRoutes.get('/bank-account', new FindByUserIdBankAccountController().handle)
 usersRoutes.get('/:id', new FindUserByIdController().handle);
 usersRoutes.patch('/avatar',uploadAvatar.single("avatar") ,new UpdateUserAvatarController().handle)
 usersRoutes.put('/:id/update', new UpdateUserController().handle);
+usersRoutes.get('/bank-account/admin', new FindByUserIdBankAccountAdminController().handle);
 
 usersRoutes.use(ensureAdmin);
-
 usersRoutes.post('/bank-account', new CreateBankAccountController().handle);
 usersRoutes.get('/', new ListUsersController().handle);
 usersRoutes.post('/remove', new RemoveUsersController().handle);

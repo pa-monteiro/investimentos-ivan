@@ -1,6 +1,6 @@
 import { User } from "@modules/account/infra/typeorm/entities/User";
 import { Product } from "@modules/products/infra/typeorm/entities/Product";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 } from "uuid";
 
 @Entity("payments_users")
@@ -29,6 +29,9 @@ class PaymentUser {
 
     @Column()
     value: number;
+
+    @Column()
+    percentage: number;
 
     @CreateDateColumn()
     created_at: Date;

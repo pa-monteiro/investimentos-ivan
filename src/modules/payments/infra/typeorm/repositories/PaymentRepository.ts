@@ -1,6 +1,5 @@
 import { CreatePaymentDTO } from "@modules/payments/dtos/CreatePaymentDTO";
 import { IPaymentRepository } from "@modules/payments/repositories/IPaymentRepository";
-import { Product } from "@modules/products/infra/typeorm/entities/Product";
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import tz from 'dayjs/plugin/timezone';
@@ -8,6 +7,7 @@ import 'dayjs/locale/pt-br'
 import { getRepository, Repository } from "typeorm";
 import { Payment, PaymentStatusEnum } from "../entities/Payment";
 import { PaymentUser } from "../entities/PaymentUser";
+import lodash from "lodash";
 
 
 dayjs.extend(utc)
@@ -22,6 +22,28 @@ class PaymentRepository implements IPaymentRepository{
     constructor(){
         this.repository = getRepository(Payment),
         this.paymentsUserRepository = getRepository(PaymentUser)
+    }
+
+    async listValueTotalAndValueAvailableByProduct(user_id: string) {
+       const valueTotal = await this.paymentsUserRepository.createQueryBuilder("pay")
+       .select("pay.product_id, pay.value as valueTotal")
+       .where("user_id = :user_id", {user_id})
+       .execute();
+
+       const valueAvailable = await this.repository.createQueryBuilder()
+       .select("*")
+       .where("type = :type", { type: 'entries'})
+       .andWhere("status = :status", {status: 'accepted'})
+       .andWhere("release_date <= :release_date ::date", { release_date: dayjs()})
+       .execute();
+
+       const merge = [].concat(valueTotal, valueAvailable);
+
+       const groupBy = lodash.groupBy(merge, "product_id");
+
+       for (const iterator in groupBy) {
+           return iterator;
+       }
     }
 
     async getValueTotalOrByProductId(user_id: string, product_id?: string): Promise<number> {
@@ -86,26 +108,6 @@ class PaymentRepository implements IPaymentRepository{
         const payment = this.repository.create(data);
         const create = await this.repository.save(payment);
 
-        const { 
-            product_id,
-            user_id,
-            value
-        } = data;
-
-        const paymentUser = await this.paymentsUserRepository.findOne({
-            where: {
-                product_id,
-                user_id
-            }
-        });
-        if(paymentUser){
-            paymentUser.value = Number(paymentUser.value) + Number(value);
-            await this.paymentsUserRepository.save(paymentUser);
-        }else{
-            const transaction = this.paymentsUserRepository.create(data);
-            await this.paymentsUserRepository.save(transaction);    
-        }
-
         return create;
     }
 
@@ -121,6 +123,42 @@ class PaymentRepository implements IPaymentRepository{
         payment.status = PaymentStatusEnum.ACCEPTED;
 
         await this.repository.save(payment);
+
+        const paymentUser = await this.paymentsUserRepository.findOne({
+            where: {
+                product_id: payment.product_id,
+                user_id: payment.user_id
+            }
+        });
+        
+        const paymentsUsers = await this.paymentsUserRepository.find({
+            where: {
+                product_id: payment.product_id
+            }
+        });
+
+        const valorTotalDoFundo = paymentsUsers.reduce((acc, val) => acc + val.value,0);
+
+        if(paymentUser){
+            paymentUser.value = paymentUser.value + payment.value;
+            paymentUser.percentage = (payment.value/valorTotalDoFundo) * 100;
+            await this.paymentsUserRepository.save(paymentUser);
+        }else{
+            const transaction = this.paymentsUserRepository.create({
+                product_id: payment.product_id,
+                user_id: payment.user_id,
+                percentage:  valorTotalDoFundo === 0 ? 100 : (payment.value/valorTotalDoFundo) * 100,
+                value: payment.value
+            });
+            await this.paymentsUserRepository.save(transaction);    
+        }
+
+        paymentsUsers.forEach(async e => {
+            await this.paymentsUserRepository.update(e.id, {
+                percentage:  valorTotalDoFundo === 0 ? 100 : (e.value/valorTotalDoFundo) * 100
+            });
+        });
+
 
         return payment;
     }

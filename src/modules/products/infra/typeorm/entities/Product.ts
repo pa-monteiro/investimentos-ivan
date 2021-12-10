@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 } from "uuid";
 
 @Entity("products")
@@ -14,7 +14,7 @@ class Product {
     type: string;
 
     @Column()
-    percentage: string;
+    percentage?: string;
 
     @Column()
     withdrawal_deadline: number;

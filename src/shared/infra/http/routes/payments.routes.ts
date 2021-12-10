@@ -12,12 +12,14 @@ import { AcceptPaymentController } from "@modules/payments/useCases/acceptPaymen
 import { CanceledPaymentController } from "@modules/payments/useCases/canceledPayment/CanceledPaymentController";
 import { WithdrawPaymentController } from "@modules/payments/useCases/withdrawPayment/WithdrawPaymentController";
 import { GetValueTotalOrByProductController } from "@modules/payments/useCases/getValueTotalOrByProduct/GetValueTotalOrByProductController";
+import { GetValueTotalAndValueAvailableByProductController } from "@modules/payments/useCases/getValueTotalAndValueAvailableByProduct/GetValueTotalAndValueAvailableByProductController";
 
 const paymentsRouter = Router();
 
 const uploadReceipt = multer(uploadConfig)
 
 paymentsRouter.use(ensureAuthenticated)
+paymentsRouter.get('/valueTotal-and-valueAvailable-by-product', new GetValueTotalAndValueAvailableByProductController().handle);
 paymentsRouter.get('/byUser', new GetPaymentsByUserController().handle);
 paymentsRouter.get('/value/:product_id?', new GetValueTotalOrByProductController().handle)
 paymentsRouter.post('/',new CreatePaymentController().handle);

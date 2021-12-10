@@ -53,7 +53,9 @@ class UsersRepository implements IUsersRepository {
     }
 
     async findById(id: string): Promise<User>{
-        return await this.repository.findOne(id)
+        return await this.repository.findOne(id, {
+            relations: ['products']
+        })
     }
 
     async findByIds(ids: string[]): Promise<User[]>{
