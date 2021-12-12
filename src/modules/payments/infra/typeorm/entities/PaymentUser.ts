@@ -31,7 +31,7 @@ class PaymentUser {
     value: number;
 
     @Column()
-    percentage: number;
+    percentage_by_product: number;
 
     @CreateDateColumn()
     created_at: Date;

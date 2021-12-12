@@ -38,7 +38,7 @@ class DailyPostingRepository implements IDailyPosting {
             }
         });
     }
-
+    
     async getValuesToDashboardAdmin() {
         const startMonth = dayjs().startOf("month").toDate();
         const endMonth = dayjs().endOf("month").toDate();
@@ -50,34 +50,54 @@ class DailyPostingRepository implements IDailyPosting {
             endMonth
         }).getRawOne();
 
-        let paymentUsers = await this.paymentsUsersRepository.find();
+        
+       const paymentsByMonth = await this.paymentsRepository.createQueryBuilder()
+       .where("accepted_at >= :startMonth ::date AND accepted_at <= :endMonth ::date", {
+           startMonth,
+           endMonth
+       }).andWhere('type = :type', {type: 'entries'}).getMany();
+
+       
+        const paymentUsersQuery = await this.paymentsUsersRepository.find();
+
         const products = await this.productsRepository.find();
      
-        paymentUsers = this.mergeById(paymentUsers, products);
+       let paymentUsers = this.mergeById(paymentUsersQuery, products);
 
-        var valorTotalFundoPorProduto =
+       var valorTotalFundoPorProduto =
         _(paymentUsers)
           .groupBy('product_id')
           .map((objs, key) => ({
               'product_id': key,
-              'product': _.find(objs, 'name'),
-              'percentage': _.sumBy(objs, 'percentage'),
+              'product': _.find(objs, 'product_id'),
               'prop': 0,
               'dtm': 0,
               'pay': 0,
               'rentabilidade': 0,
               'lucro': 0,
+              'sum':0,
               'value': Number(_.sumBy(objs, item => Number(item.value))) }))
           .value();
 
           const valorTotalFundo = valorTotalFundoPorProduto.reduce((acc, v) => acc + Number(v.value), 0);
+            const diasDoMes = this._numDias()+1;
 
-          valorTotalFundoPorProduto.map(v => {
-              v.prop = Number(((v.value/valorTotalFundo)*100).toFixed(2));
-              v.dtm = Number((v.prop * Number(totalLancamentoDiario.tm)).toFixed(2));
-              v.pay = Number((v.value * Number(v.percentage)).toFixed(2))
-              v.rentabilidade = Number((v.pay/this._numDias()).toFixed(2))
-              v.lucro = v.dtm - v.pay
+         valorTotalFundoPorProduto.map(v => {
+              v.prop = (v.value/valorTotalFundo)*100;
+              v.dtm = v.prop * totalLancamentoDiario.tm;
+
+            v.pay = v.product.type === 'fixed' ? v.value * (v.product.percentage/100) : v.dtm - (v.dtm * 0.35);
+            v.rentabilidade = v.pay/this._numDias();
+            let sum = 0;
+            paymentsByMonth.map(pm => {
+                const diasContabilizados = diasDoMes - dayjs(pm.accepted_at).get('date')
+                if(pm.product_id === v.product_id){
+                    const puq = paymentUsersQuery.find(puq => puq.user_id === pm.user_id && puq.product_id === pm.product_id);
+                    sum += puq.percentage_by_product * diasContabilizados * v.rentabilidade
+                }
+            })
+            v.sum = v.product.type === 'fixed' ? sum : sum + (v.pay - sum);
+            v.lucro = v.product.type === 'fixed' ? v.dtm - sum : v.dtm * 0.35;
           });
 
           return valorTotalFundoPorProduto;

@@ -137,25 +137,29 @@ class PaymentRepository implements IPaymentRepository{
             }
         });
 
-        const valorTotalDoFundo = paymentsUsers.reduce((acc, val) => acc + val.value,0);
+        const valorTotalDoFundo = paymentsUsers.reduce((acc, val) => acc + Number(val.value),0);
 
         if(paymentUser){
             paymentUser.value = paymentUser.value + payment.value;
-            paymentUser.percentage = (payment.value/valorTotalDoFundo) * 100;
+            const valorTotalAtualizado = Number(valorTotalDoFundo) + Number(paymentUser.value);
+            paymentUser.percentage_by_product = (paymentUser.value/valorTotalAtualizado) * 100;
             await this.paymentsUserRepository.save(paymentUser);
         }else{
+            const valorTotalAtualizado = Number(valorTotalDoFundo) + Number(payment.value);
             const transaction = this.paymentsUserRepository.create({
                 product_id: payment.product_id,
                 user_id: payment.user_id,
-                percentage:  valorTotalDoFundo === 0 ? 100 : (payment.value/valorTotalDoFundo) * 100,
+                percentage_by_product:  valorTotalDoFundo === 0 ? 100 : (payment.value/valorTotalAtualizado) * 100,
                 value: payment.value
             });
             await this.paymentsUserRepository.save(transaction);    
         }
 
+        const valorTotalAtualizado = Number(valorTotalDoFundo) + Number(payment.value);
+
         paymentsUsers.forEach(async e => {
             await this.paymentsUserRepository.update(e.id, {
-                percentage:  valorTotalDoFundo === 0 ? 100 : (e.value/valorTotalDoFundo) * 100
+                percentage_by_product:  valorTotalDoFundo === 0 ? 100 : (e.value/valorTotalAtualizado) * 100
             });
         });
 
