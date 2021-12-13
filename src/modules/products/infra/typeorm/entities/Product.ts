@@ -17,6 +17,9 @@ class Product {
     percentage?: string;
 
     @Column()
+    profitability?: number;
+
+    @Column()
     withdrawal_deadline: number;
 
     @Column()

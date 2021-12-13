@@ -14,14 +14,18 @@ export class CreatePaymentsUsers1638644856653 implements MigrationInterface {
                     },
                     {
                         name: 'user_id',
-                        type: 'varchar',
+                        type: 'uuid',
                     },
                     {
                         name: 'product_id',
-                        type: 'varchar',
+                        type: 'uuid',
                     },
                     {
                         name: 'value',
+                        type: 'numeric'
+                    },
+                    {
+                        name: 'percentage_by_product',
                         type: 'numeric'
                     },
                     {

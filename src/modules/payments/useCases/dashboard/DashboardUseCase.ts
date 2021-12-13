@@ -9,7 +9,10 @@ class DashboardUseCase {
         private dailyPostingRepository: IDailyPosting
     ){}
 
-    async execute(){
+    async execute(user_id: string, isAdmin: boolean){
+        if(!isAdmin){
+            return await this.dailyPostingRepository.getValuesToDashboard(user_id);
+        }
        return await this.dailyPostingRepository.getValuesToDashboardAdmin();
     }
 }

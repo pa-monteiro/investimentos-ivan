@@ -11,4 +11,5 @@ export interface IPaymentRepository {
     filterByUserIdAndProduct(user_id:string, product_id: string);
     listValueTotalAndValueAvailableByProduct(user_id: string);
     getValueTotalOrByProductId(user_id: string, product_id?: string): Promise<number>;
+    notificationPendenciasAdmin(): Promise<Payment[]>
 }

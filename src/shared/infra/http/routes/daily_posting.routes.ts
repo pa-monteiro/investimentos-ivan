@@ -10,11 +10,11 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 const dailyPostingRouter = Router();
 
 dailyPostingRouter.use(ensureAuthenticated)
+dailyPostingRouter.get('/dashboard', new DashboardController().handle)
 dailyPostingRouter.use(ensureAdmin)
 dailyPostingRouter.post('/', new CreateDailyPostingController().handle)
 dailyPostingRouter.put('/:id', new UpdateDailyPostingController().handle)
 dailyPostingRouter.get('/', new GetDailyPostingsMonthController().handle)
-dailyPostingRouter.get('/dashboard', new DashboardController().handle)
 dailyPostingRouter.get('/reports/indicators', new GetIndicatorsReportController().handle)
 
 export {

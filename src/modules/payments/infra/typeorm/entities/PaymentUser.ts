@@ -17,7 +17,7 @@ class PaymentUser {
 
     @Column()
     user_id: string;
-
+    
     @ManyToOne(() => Product)
     @JoinColumn({
         name: "product_id"

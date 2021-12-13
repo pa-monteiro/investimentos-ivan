@@ -16,6 +16,10 @@ import { BankAccountsRepository } from '@modules/account/infra/typeorm/repositor
 import { IStorageProvider } from './providers/StorageProvider/IStorageProvider';
 import { LocalStorageProvider } from './providers/StorageProvider/implementations/LocalStorageProvider';
 import { FirebaseStorageProvider } from './providers/StorageProvider/implementations/FirebaseStorageProvider';
+import { IUsersTokensRepository } from '@modules/account/repositories/IUsersTokensRepository';
+import { UsersTokensRepository } from '@modules/account/infra/typeorm/repositories/UsersTokensRepository';
+import { IDateProvider } from './providers/DateProvider/IDateProvider';
+import { DayjsDateProvider } from './providers/implementations/DayjsDateProvider';
 
 container.registerSingleton<IUsersRepository>(
     "UsersRepository",
@@ -45,4 +49,14 @@ container.registerSingleton<IBankAccountsRepository>(
 container.registerSingleton<IStorageProvider>(
     "StorageProvider",
     FirebaseStorageProvider
+)
+
+container.registerSingleton<IDateProvider>(
+    "DayjsDateProvider",
+    DayjsDateProvider
+)
+
+container.registerSingleton<IUsersTokensRepository>(
+    "UsersTokensRepository",
+    UsersTokensRepository
 )

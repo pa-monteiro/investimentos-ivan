@@ -13,6 +13,7 @@ import { CanceledPaymentController } from "@modules/payments/useCases/canceledPa
 import { WithdrawPaymentController } from "@modules/payments/useCases/withdrawPayment/WithdrawPaymentController";
 import { GetValueTotalOrByProductController } from "@modules/payments/useCases/getValueTotalOrByProduct/GetValueTotalOrByProductController";
 import { GetValueTotalAndValueAvailableByProductController } from "@modules/payments/useCases/getValueTotalAndValueAvailableByProduct/GetValueTotalAndValueAvailableByProductController";
+import { GetNotificationsAdminController } from "@modules/payments/useCases/getNotificationsAdmin/GetNotificationsAdminController";
 
 const paymentsRouter = Router();
 
@@ -27,6 +28,7 @@ paymentsRouter.put('/receipt/:id',uploadReceipt.single("file") ,new UpdatePaymen
 paymentsRouter.post('/withdraw', new WithdrawPaymentController().handle);
 
 paymentsRouter.use(ensureAdmin)
+paymentsRouter.get('/notifications-admin', new GetNotificationsAdminController().handle)
 paymentsRouter.get('/', new FindAllController().handle);
 paymentsRouter.get('/:id', new FindByIdController().handle);
 paymentsRouter.put('/:id/accept', new AcceptPaymentController().handle);
