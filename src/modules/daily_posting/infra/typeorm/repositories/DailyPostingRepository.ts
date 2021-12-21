@@ -69,18 +69,18 @@ class DailyPostingRepository implements IDailyPosting {
             .value();
             
             const valorTotalFundo = valorTotalFundoPorProduto.reduce((acc, v) => acc + Number(v.value), 0);
-            const diasDoMes = this._numDias()+1;
+            const diaAtual = dayjs().get("date");
             
             valorTotalFundoPorProduto.map(async v => {
-                v.prop = (v.value/valorTotalFundo)*100;
-                v.dtm = v.prop * totalLancamentoDiario.tm;
+                v.prop = Number(((v.value/valorTotalFundo)*100).toFixed(2));
+                v.dtm = Number((v.prop * totalLancamentoDiario.tm).toFixed(2));
                 
                 v.pay = v.product.type === 'fixed' ? v.value * (v.product.percentage/100) : v.dtm - (v.dtm * 0.35);
                 v.rentabilidade = v.pay/this._numDias();
                 
                 let sum = 0;
                 paymentsByMonth.map(pm => {
-                    const diasContabilizados = diasDoMes - dayjs(pm.accepted_at).get('date')
+                    const diasContabilizados = diaAtual - dayjs(pm.accepted_at).get('date')
                     if(pm.product_id === v.product_id){
                         const puq = paymentUsersQuery.find(puq => puq.user_id === pm.user_id && puq.product_id === pm.product_id);
                         console.log('Fundo', v.product.name, 'Porcentagem: ', puq.percentage_by_product,'Resultado: ', puq.percentage_by_product * diasContabilizados * v.rentabilidade)
@@ -211,7 +211,6 @@ class DailyPostingRepository implements IDailyPosting {
                 const products = await this.productsRepository.find();
                 
                 let paymentUsers = this.mergeById(paymentUsersQuery, products);
-                
                 var valorTotalFundoPorProduto =
                 _(paymentUsers)
                 .groupBy('product_id')
@@ -231,31 +230,22 @@ class DailyPostingRepository implements IDailyPosting {
                     const diasDoMes = this._numDias()+1;
                     
                     valorTotalFundoPorProduto.map(async v => {
-                        v.prop = (v.value/valorTotalFundo)*100;
+                        v.prop = Number(((v.value/valorTotalFundo)*100).toFixed(2));
                         v.dtm = v.prop * totalLancamentoDiario.tm;
-                        
                         v.pay = v.product.type === 'fixed' ? v.value * (v.product.percentage/100) : v.dtm - (v.dtm * 0.35);
                         v.rentabilidade = v.pay/this._numDias();
-                        
-                        // const productRepository = await this.productsRepository.findOne(v.product.id);
-                        // if(productRepository.profitability !== v.rentabilidade){
-                        //     productRepository.profitability = v.rentabilidade;
-                        //     await this.productsRepository.save(productRepository)
-                        // }
                         
                         let sum = 0;
                         paymentsByMonth.map(pm => {
                             const diasContabilizados = diasDoMes - dayjs(pm.accepted_at).get('date')
                             if(pm.product_id === v.product_id){
                                 const puq = paymentUsersQuery.find(puq => puq.user_id === pm.user_id && puq.product_id === pm.product_id);
-                                console.log('Fundo', v.product.name, 'Porcentagem: ', puq.percentage_by_product,'Resultado: ', puq.percentage_by_product * diasContabilizados * v.rentabilidade)
                                 sum += puq.percentage_by_product * diasContabilizados * v.rentabilidade
                             }
                         })
                         v.sum = v.product.type === 'fixed' ? sum : sum + (v.pay - sum);
-                        v.lucro = v.product.type === 'fixed' ? v.dtm - sum : v.dtm * 0.35;
+                        v.lucro = v.product.type === 'fixed' ? (v.dtm - sum)/100 : (v.dtm * 0.35)/100;
                     });
-                    
                     return valorTotalFundoPorProduto;
                     
                 }
