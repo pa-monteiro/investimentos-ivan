@@ -1,52 +1,59 @@
 import { User } from "@modules/account/infra/typeorm/entities/User";
 import { Product } from "@modules/products/infra/typeorm/entities/Product";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { v4 } from "uuid";
 
 @Entity("payments_users")
 class PaymentUser {
+  @PrimaryColumn()
+  id: string;
 
-    @PrimaryColumn()
-    id: string;
+  @ManyToOne(() => User)
+  @JoinColumn({
+    name: "user_id",
+  })
+  user: User;
 
-    @ManyToOne(() => User)
-    @JoinColumn({
-        name: "user_id"
-    })
-    user: User;
+  @Column()
+  user_id: string;
 
-    @Column()
-    user_id: string;
-    
-    @ManyToOne(() => Product)
-    @JoinColumn({
-        name: "product_id"
-    })
-    product: Product;
+  @ManyToOne(() => Product)
+  @JoinColumn({
+    name: "product_id",
+  })
+  product: Product;
 
-    @Column()
-    product_id: string;
+  @Column()
+  product_id: string;
 
-    @Column()
-    value: number;
+  @Column()
+  value: number;
 
-    @Column()
-    percentage_by_product: number;
+  @Column()
+  percentage_by_product: number;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @Column()
+  lucro_mensal: number;
 
-    @UpdateDateColumn()
-    updated_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-    constructor(){
-        if(!this.id){
-            this.id = v4();
-        }
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = v4();
     }
-
+  }
 }
 
-export {
-    PaymentUser
-}
+export { PaymentUser };

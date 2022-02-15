@@ -6,7 +6,7 @@ import { PaymentUser } from "@modules/payments/infra/typeorm/entities/PaymentUse
 import { Product } from "@modules/products/infra/typeorm/entities/Product";
 import dayjs from "dayjs";
 import _ from "lodash";
-import { Between, getRepository, Repository } from "typeorm";
+import { Between, getRepository, Repository, MoreThan, Not } from "typeorm";
 
 import { DailyPosting } from "../entities/DailyPosting";
 
@@ -120,27 +120,18 @@ class DailyPostingRepository implements IDailyPosting {
     const startMonth = dayjs().startOf("month").toDate();
     const endMonth = dayjs().endOf("month").toDate();
 
-    const totalLancamentoDiario = await this.repository
+    const { tm: totalLancamentoDiario } = await this.repository
       .createQueryBuilder()
       .select("SUM(value) as TM")
-      .where(
-        "created_at >= :startMonth ::date AND created_at <= :endMonth ::date",
-        {
-          startMonth,
-          endMonth,
-        }
-      )
+      .where("date >= :startMonth ::date AND date <= :endMonth ::date", {
+        startMonth,
+        endMonth,
+      })
       .getRawOne();
 
     const paymentsByMonth = await this.paymentsRepository
       .createQueryBuilder()
-      .where(
-        "accepted_at >= :startMonth ::date AND accepted_at <= :endMonth ::date",
-        {
-          startMonth,
-          endMonth,
-        }
-      )
+      .where("status IN (:...status)", { status: ["accepted", "released"] })
       .andWhere("type = :type", { type: "entries" })
       .getMany();
 
@@ -168,11 +159,10 @@ class DailyPostingRepository implements IDailyPosting {
       (acc, v) => acc + Number(v.value),
       0
     );
-    const diasDoMes = this._numDias() + 1;
 
     valorTotalFundoPorProduto.map(async (v) => {
       v.proporcional = v.value / valorTotalFundo;
-      v.dtm = v.proporcional * totalLancamentoDiario.tm;
+      v.dtm = v.proporcional * totalLancamentoDiario;
       v.pagamentos =
         v.product.type === "fixed"
           ? v.value * (v.product.percentage / 100)
@@ -181,8 +171,7 @@ class DailyPostingRepository implements IDailyPosting {
 
       let sum = 0;
       paymentsByMonth.map((pm) => {
-        const diasContabilizados =
-          diasDoMes - dayjs(pm.accepted_at).get("date");
+        const diasContabilizados = dayjs().date();
         if (pm.product_id === v.product_id) {
           const puq = paymentUsersQuery.find(
             (puq) =>
@@ -199,7 +188,29 @@ class DailyPostingRepository implements IDailyPosting {
       v.sum = v.product.type === "fixed" ? sum : sum + (v.pagamentos - sum);
       v.lucro = v.product.type === "fixed" ? v.dtm - sum : v.dtm * 0.35;
     });
-    return valorTotalFundoPorProduto;
+    const arrayteste = [];
+    const paymentsDoFulano = await this.paymentsUsersRepository.find({
+      where: {
+        user_id,
+      },
+    });
+
+    valorTotalFundoPorProduto.map((vtfp) => {
+      const ppp = paymentsDoFulano.find(
+        (pdf) => pdf.product_id === vtfp.product_id
+      );
+      if (ppp.product_id === vtfp.product_id) {
+        const proporcional = ppp.value / vtfp.value;
+        arrayteste.push({
+          valorTotal: Number(ppp.value),
+          product_id: ppp.product_id,
+          product_name: ppp.product.name,
+          proporcional,
+          lucro: proporcional * dayjs().date() * vtfp.rentabilidade,
+        });
+      }
+    });
+    return arrayteste;
   }
 
   async getValuesToIndicatorsReport() {
@@ -327,27 +338,18 @@ class DailyPostingRepository implements IDailyPosting {
     const startMonth = dayjs().startOf("month").toDate();
     const endMonth = dayjs().endOf("month").toDate();
 
-    const totalLancamentoDiario = await this.repository
+    const { tm: totalLancamentoDiario } = await this.repository
       .createQueryBuilder()
       .select("SUM(value) as TM")
-      .where(
-        "created_at >= :startMonth ::date AND created_at <= :endMonth ::date",
-        {
-          startMonth,
-          endMonth,
-        }
-      )
+      .where("date >= :startMonth ::date AND date <= :endMonth ::date", {
+        startMonth,
+        endMonth,
+      })
       .getRawOne();
 
     const paymentsByMonth = await this.paymentsRepository
       .createQueryBuilder()
-      .where(
-        "accepted_at >= :startMonth ::date AND accepted_at <= :endMonth ::date",
-        {
-          startMonth,
-          endMonth,
-        }
-      )
+      .where("status IN (:...status)", { status: ["accepted", "released"] })
       .andWhere("type = :type", { type: "entries" })
       .getMany();
 
@@ -375,11 +377,10 @@ class DailyPostingRepository implements IDailyPosting {
       (acc, v) => acc + Number(v.value),
       0
     );
-    const diasDoMes = this._numDias() + 1;
 
     valorTotalFundoPorProduto.map(async (v) => {
       v.proporcional = v.value / valorTotalFundo;
-      v.dtm = v.proporcional * totalLancamentoDiario.tm;
+      v.dtm = v.proporcional * totalLancamentoDiario;
       v.pagamentos =
         v.product.type === "fixed"
           ? v.value * (v.product.percentage / 100)
@@ -388,14 +389,21 @@ class DailyPostingRepository implements IDailyPosting {
 
       let sum = 0;
       paymentsByMonth.map((pm) => {
-        const diasContabilizados =
-          diasDoMes - dayjs(pm.accepted_at).get("date");
+        const diasContabilizados = dayjs().date();
+        console.log("dias contabilizados", diasContabilizados);
         if (pm.product_id === v.product_id) {
           const puq = paymentUsersQuery.find(
             (puq) =>
               puq.user_id === pm.user_id && puq.product_id === pm.product_id
           );
-
+          console.log(
+            "Produto:",
+            puq.product_id,
+            "Porcentagem:",
+            puq.percentage_by_product,
+            diasContabilizados,
+            v.rentabilidade
+          );
           sum +=
             (puq.percentage_by_product / 100) *
             diasContabilizados *

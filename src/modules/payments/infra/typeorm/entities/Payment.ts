@@ -1,84 +1,88 @@
 import { User } from "@modules/account/infra/typeorm/entities/User";
 import { Product } from "@modules/products/infra/typeorm/entities/Product";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { v4 } from "uuid";
 
 export enum PaymentStatusEnum {
-    PENDING = 'pending',
-    CANCELED = 'canceled',
-    ACCEPTED = 'accepted',
-    RELEASED = 'released',
-    FREE = 'free'
+  PENDING = "pending",
+  CANCELED = "canceled",
+  ACCEPTED = "accepted",
+  RELEASED = "released",
+  FREE = "free",
 }
 
 @Entity("payments")
 class Payment {
+  @PrimaryColumn()
+  id: string;
 
-    @PrimaryColumn()
-    id: string;
+  @Column()
+  type: string;
 
-    @Column()
-    type: string;
+  @Column()
+  value: number;
 
-    @Column()
-    value: number;
+  @ManyToOne(() => User)
+  @JoinColumn({
+    name: "user_id",
+  })
+  user: User;
 
-    @ManyToOne(() => User)
-    @JoinColumn({
-        name: "user_id"
-    })
-    user: User;
+  @Column()
+  user_id: string;
 
-    @Column()
-    user_id: string;
+  @ManyToOne(() => Product)
+  @JoinColumn({
+    name: "product_id",
+  })
+  product: Product;
 
-    @ManyToOne(() => Product)
-    @JoinColumn({
-        name: "product_id"
-    })
-    product: Product;
+  @Column()
+  product_id: string;
 
-    @Column()
-    product_id: string;
+  @Column()
+  receipt_image: string;
 
-    @Column()
-    receipt_image: string;
+  @Column()
+  release_date: Date;
 
-    @Column()
-    release_date: Date;
+  @Column()
+  start_date: Date;
 
-    @Column()
-    start_date: Date;
+  @Column()
+  accepted_at: Date;
 
-    @Column()
-    accepted_at: Date;
+  @Column()
+  status: string;
 
-    @Column()
-    status: string;
+  @ManyToOne(() => User)
+  @JoinColumn({
+    name: "accepted_by",
+  })
+  userAcceptedBy: User;
 
-    @ManyToOne(() => User)
-    @JoinColumn({
-        name: "accepted_by"
-    })
-    userAcceptedBy: User;
+  @Column()
+  accepted_by: string;
 
-    @Column()
-    accepted_by: string;
+  @CreateDateColumn()
+  created_at: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date;
-
-    constructor(){
-        if(!this.id){
-            this.id = v4();
-        }
+  constructor() {
+    if (!this.id) {
+      this.id = v4();
     }
-
+  }
 }
 
-export {
-    Payment
-}
+export { Payment };
